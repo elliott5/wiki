@@ -45,7 +45,7 @@ func NewRequest(baseURL, query, language string) (*Request, error) {
 // Execute fetches the data and decodes it into a Response.
 // Returns an error if the data could not be retrived or the decoding fails.
 func (r *Request) Execute(noCheckCert bool) (*Response, error) {
-	client := &http.Client{}
+	client := httpClient()
 
 	if noCheckCert {
 		tr := &http.Transport{
