@@ -58,6 +58,7 @@ func (r *Request) Execute(noCheckCert bool) (*Response, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer data.Body.Close()
 
 	d := json.NewDecoder(data.Body)
 	resp := &Response{}
