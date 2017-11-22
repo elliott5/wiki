@@ -8,12 +8,13 @@ import (
 
 // Page contains the parsed data.
 type Page struct {
-	ID       int
-	Title    string
-	Content  string
-	Language string
-	URL      string
-	Redirect *redirect
+	ID        int
+	Title     string
+	Content   string
+	Language  string
+	URL       string
+	Redirect  *redirect
+	Thumbnail string
 }
 
 // Response contains the raw data the API returns.
@@ -40,6 +41,7 @@ func (r *Response) Page() (*Page, error) {
 		page.Content = strings.Replace(p.Extract, "\n", "\n\n", -1)
 		page.Language = p.Pagelanguage
 		page.URL = url
+		page.Thumbnail = p.Thumbnail.Source
 
 		break
 	}
@@ -57,6 +59,10 @@ type redirect struct {
 	To   string
 }
 
+type thumbnail struct {
+	Source string // width & height ignored
+}
+
 type page struct {
 	Pageid       int
 	Ns           int
@@ -67,4 +73,5 @@ type page struct {
 	Touched      time.Time
 	Fullurl      string
 	Canonicalurl string
+	Thumbnail    thumbnail
 }

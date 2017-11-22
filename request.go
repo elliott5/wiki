@@ -15,6 +15,9 @@ type Request struct {
 	*url.URL
 }
 
+// ThumbSize is the maximum size of the returned image, as a string in px.
+var ThumbSize = "100"
+
 // NewRequest creates a new request against baseURL for language.
 // Language is interpolated in the baseURL if asked, if not it is ignored.
 // Query is the title of the page to fetch.
@@ -29,7 +32,8 @@ func NewRequest(baseURL, query, language string) (*Request, error) {
 	}
 	v := url.Query()
 	v.Set("action", "query")
-	v.Set("prop", "extracts|info")
+	v.Set("prop", "extracts|info|pageimages")
+	v.Set("pithumbsize", ThumbSize)
 	v.Set("format", "json")
 	v.Set("exintro", "")
 	v.Set("explaintext", "")
