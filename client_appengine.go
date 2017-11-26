@@ -14,7 +14,7 @@ import (
 var mtx sync.Mutex
 var currentClient *http.Client
 
-func httpClient() *http.Client {
+func httpClient(noCheckCert bool) *http.Client {
 	return currentClient
 }
 

@@ -1,10 +1,17 @@
-// +build !appengine
+// +build !appengine,!js
 
 package wiki
 
 import "net/http"
+import "crypto/tls"
 
-func httpClient() *http.Client {
+func httpClient(noCheckCert bool) *http.Client {
+	if noCheckCert {
+		tr := &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		}
+		return &http.Client{Transport: tr}
+	}
 	return &http.Client{}
 }
 
